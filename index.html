@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="generated-pin-display" class="form-control" type="text" value="">
+                    <button class="generate-btn" onclick="generatePinDisplay()">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="input-pin-display" class="form-control" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div class="button" onclick="showNumber(this.innerHTML)">7</div>
+                              <div class="button" onclick="showNumber(this.innerHTML)">8</div>
+                              <div class="button" onclick="showNumber(this.innerHTML)">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="showNumber(this.innerHTML)">4</div>
+                              <div class="button" onclick="showNumber(this.innerHTML)">5</div>
+                              <div class="button" onclick="showNumber(this.innerHTML)">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="showNumber(this.innerHTML)">1</div>
+                              <div class="button" onclick="showNumber(this.innerHTML)">2</div>
+                              <div class="button" onclick="showNumber(this.innerHTML)">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button"><</div>
+                                <div class="button" onclick="showNumber(this.innerHTML)">0</div>
+                                <div class="button" onclick="document.getElementById('input-pin-display').value = null">C</div>
+                            </div>
+                            <div>
+                                <button id="submit-button" type="submit" class="submit-btn" onclick="verifyPin()">Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p id="access-denied" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="access-granted" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+
+
+    <script>
+        
+        //generate random pin and display on the input field
+         
+        
+        var generatedPin = generatePin();
+
+
+        function generatePin(){
+
+            //Fixed 4 digit random number
+
+            let pin = Math.floor(1000 + Math.random() * 9000); //we have to put the pin here also to make it dynamic with each click
+            return pin ;
+        }
+
+        function generatePinDisplay(){
+
+            document.getElementById("generated-pin-display").value = generatePin();
+
+            document.getElementById("access-granted").style.display = "none";
+
+            document.getElementById("access-denied").style.display = "none";
+            
+        }
+
+        function showNumber(x){
+
+            document.getElementById("input-pin-display").value = document.getElementById("input-pin-display").value + x ;
+        }
+
+
+
+        function verifyPin(){
+
+
+            if(document.getElementById("input-pin-display").value === document.getElementById("generated-pin-display").value){
+                
+                document.getElementById("access-granted").style.display = "block";
+                return
+            }
+
+            else{
+                document.getElementById("access-denied").style.display = "block";
+            }
+        }
+
+        
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
